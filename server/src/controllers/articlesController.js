@@ -6,13 +6,13 @@ const FormData = require('form-data');
 const TelegramBot = require('node-telegram-bot-api');
 
 // Замените 'YOUR_TELEGRAM_BOT_TOKEN' на ваш токен
-const token = '7051240669:AAF7V2i4OnI_5egtYuxZYCd-NdYh4kdsMhM';
+const token = process.env.TG_BOT;
 
 // Создание бота
 const bot = new TelegramBot(token, {polling: true});
 
 const openai = new OpenAI({
-  apiKey: 'sk-proj-1BEE3PoQMVFtfMwfRMwCT3BlbkFJH6zyIezqUxYXdaHaOtRZ'// Это также значение по умолчанию, может быть опущено
+  apiKey: process.env.OPEN_AI_API
 });
 
 function parseReplyText(text) {
@@ -46,7 +46,7 @@ ${text}
     replydata.text = mainTextMatch[1].trim();
   }
 
-  console.log(`ОТправляем данные парсинга ${JSON.stringify(replydata, null, 2)}`)
+  console.log(`Отправляем данные парсинга ${JSON.stringify(replydata, null, 2)}`)
   return replydata;
 
 }
@@ -54,7 +54,7 @@ ${text}
 async function sendRequestToContentWatch(generateText) {
   try {
     const form = new FormData();
-    form.append('key', '3Yj5PLF0wJHwpxZ');
+    form.append('key', process.env.CONTENT_WATCH);
     form.append('action', 'CHECK_TEXT');
     form.append('text', generateText);
 

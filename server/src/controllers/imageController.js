@@ -6,7 +6,7 @@ const fs = require('fs');
 const OpenAI = require('openai');
 
 const openai = new OpenAI({
-  apiKey: 'sk-proj-1BEE3PoQMVFtfMwfRMwCT3BlbkFJH6zyIezqUxYXdaHaOtRZ'
+  apiKey: process.env.OPEN_AI_API
 });
 
 // Функция для загрузки и сохранения изображения из URL
