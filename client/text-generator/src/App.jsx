@@ -45,7 +45,7 @@ function App() {
 
   const fetchData = useCallback(async (id) => {
     try {
-      const response = await axios.get('http://localhost:3001/articles/');
+      const response = await axios.get('http://45.91.168.197:3001/articles/');
       // Обратите внимание, что мы сначала делаем копию данных, чтобы не мутировать исходный массив при reverse
       let newData = [...response.data].reverse();
   
@@ -65,7 +65,7 @@ function App() {
 
   const publishData = async (id, sourse, sourceId, isVersion) => {
     // Основной путь к вашему API
-    let baseUrl = `http://localhost:3001/articles/${!isVersion ? id : `versions/${id}`}`;
+    let baseUrl = `http://45.91.168.197:3001/articles/${!isVersion ? id : `versions/${id}`}`;
 console.log('✌️baseUrl --->', baseUrl);
   
     // Добавляем query-параметры к URL
@@ -89,7 +89,7 @@ console.log('✌️baseUrl --->', baseUrl);
 
   const DeleteCard = useCallback(async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/articles/${id}`);
+      await axios.delete(`http://45.91.168.197:3001/articles/${id}`);
       // Обновляем состояние, чтобы исключить удаленную статью
       setArticles(currentArticles => currentArticles.filter(article => article.id !== id));
     } catch (error) {
@@ -120,7 +120,7 @@ console.log('✌️baseUrl --->', baseUrl);
     }
     setIsModalOpen(false);
     setLoadingInfo({isLoading: true, text: 'Идет генерация статьи', type: null})
-    axios.post('http://localhost:3001/articles', originalText)
+    axios.post('http://45.91.168.197:3001/articles', originalText)
       .then(response => {
         console.log("Статья успешно добавлена:", response.data);
         // Здесь вы можете обработать ответ сервера, например, закрыть модальное окно
