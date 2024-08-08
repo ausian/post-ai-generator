@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100vh;
+}
+.ant-tabs-tabpane {
+  
+  padding-right: 0 !important; /* Новое значение для padding-bottom */
+}
+.ant-card-meta-title {
+  white-space: normal !important;
+  }
+   .ant-tabs-nav {
+    height: 450px !important;
+  }
+  .ant-tabs-content-holder {
+    border-right: 0px !important;
+  }
+
+  .linkOne .ant-tabs-ink-bar {
+    height: 0;
+  }
+
+  .ant-card-head {
+    min-height: auto !important;
+  }

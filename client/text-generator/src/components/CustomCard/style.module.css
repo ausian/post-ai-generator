@@ -1,0 +1,11 @@
+.labelParams {
+    display: block;
+    margin-bottom: 8px;
+}
+.inputNumberUnderLabel {
+    font-size: 11px;
+    margin-left: 5px;
+}
+/* .card {
+    width: 700px;
+} */

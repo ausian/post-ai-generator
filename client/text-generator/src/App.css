@@ -1,0 +1,19 @@
+.grid {
+    width: 800px;
+    margin: 0;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: auto;
+  grid-gap: 10px;
+  padding: 10px;
+
+}
+.buttonStatus,.buttonStatus:hover  {
+    background-color: #9747FF !important;
+    cursor: auto !important;
+    color: white !important;
+    align-items: center;
+    display: flex;
+    gap: 5px;
+}

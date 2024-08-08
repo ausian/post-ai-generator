@@ -1,0 +1,104 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model Source {
+  id        Int           @id @default(autoincrement())
+  name      String
+  url       String?
+  publications Publication[]
+}
+
+model Publication {
+  id               Int               @id @default(autoincrement())
+  date             DateTime          @default(now())
+  sourceId         Int
+  source           Source            @relation(fields: [sourceId], references: [id])
+  articleId        Int?
+  articleVersionId Int?
+  article          Article?          @relation(fields: [articleId], references: [id])
+  articleVersion   ArticleVersion?   @relation(fields: [articleVersionId], references: [id])
+}
+
+
+model Article {
+  id              Int               @id @default(autoincrement())
+  originalText    String
+  title           String
+  previewText     String
+  text            String
+  imageUrl        String?
+  date            DateTime          @default(now())
+  uniqueness      UniquenessDetail?
+  versions        ArticleVersion[]
+  articleParams   ArticleParams?
+  publications Publication[] 
+}
+
+model ArticleVersion {
+  id              Int              @id @default(autoincrement())
+  articleId       Int
+  originalText    String
+  title           String
+  previewText     String
+  text            String
+  imageUrl        String?
+  uniqueness      UniquenessDetail?
+  article         Article          @relation(fields: [articleId], references: [id])
+  params          ArticleParams?   // Обратная связь определена через articleVersionId в ArticleParams
+  publications Publication[] 
+}
+
+model UniquenessDetail {
+  id              Int              @id @default(autoincrement())
+  percent         Float
+  highlight       String
+  matches         String
+  articleId       Int?  @unique
+  articleVersionId Int?  @unique
+  article         Article?         @relation(fields: [articleId], references: [id])
+  articleVersion  ArticleVersion?  @relation(fields: [articleVersionId], references: [id])
+}
+
+
+model ArticleParams {
+  id                  Int             @id @default(autoincrement())
+  style               String
+  tone                String
+  lang                String
+  degree              String
+  target              String
+  headerLength        Int
+  previewLength       Int
+  textLength          Int
+  perspective         Int
+  paragraph           Int
+  temperature         Float
+  quotesInDirectSpeech Boolean
+  engTranslateExpr    Boolean
+  articleId           Int?  @unique 
+  article             Article?        @relation(fields: [articleId], references: [id])
+  articleVersionId    Int?            @unique
+  articleVersion      ArticleVersion? @relation(fields: [articleVersionId], references: [id])
+
+  // Новые поля для шаблонов
+  initialContextTemplate String? // Поле может быть пустым, поэтому тип Optional
+  promptTemplate         String? // Поле может быть пустым, поэтому тип Optional
+}
+
+model Style {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+}
